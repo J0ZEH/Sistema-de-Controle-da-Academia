@@ -1,0 +1,145 @@
+
+CREATE TABLE public.aula (
+    id_aula integer NOT NULL,
+    id_modalidade integer NOT NULL,
+    duracao time without time zone DEFAULT '00:00:00'::time without time zone NOT NULL,
+    hora_inicio time without time zone DEFAULT '00:00:00'::time without time zone NOT NULL,
+    rg_professor character varying(13) NOT NULL,
+    nome character varying(20) NOT NULL,
+    id_sala character varying(20) NOT NULL
+);
+
+CREATE TABLE public.aula_cliente (
+    id_aula integer NOT NULL,
+    rg_cliente character varying(13) NOT NULL
+);
+
+CREATE TABLE public.cliente (
+    rg_cliente character varying(13) NOT NULL,
+    nome character varying(200) NOT NULL,
+    rua character varying(30) NOT NULL,
+    bairro character varying(30) NOT NULL,
+    numero character varying(10) NOT NULL,
+    cep character varying(9) NOT NULL
+);
+
+CREATE TABLE public.contrato (
+    rg_cliente character varying(13) NOT NULL,
+    id_contrato integer NOT NULL,
+    data_inicio date NOT NULL,
+    data_fim date NOT NULL,
+    forma_pagamento character varying(50) NOT NULL,
+    valor_contrato double precision NOT NULL
+);
+
+CREATE TABLE public.modalidade (
+    id_modalidade integer NOT NULL,
+    nome character varying(20) NOT NULL
+);
+
+CREATE TABLE public.modalidade_professor (
+    id_modalidade integer NOT NULL,
+    rg_professor character varying(13) NOT NULL
+);
+
+CREATE TABLE public.professor (
+    rg_professor character varying(13) NOT NULL,
+    nome character varying(200) NOT NULL,
+    rua character varying(30) NOT NULL,
+    bairro character varying(30) NOT NULL,
+    numero character varying(10) NOT NULL,
+    cep character varying(9) NOT NULL,
+    salario double precision NOT NULL,
+    num_carteira character varying(7) DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE public.qualificacao (
+    id_qualificacao integer NOT NULL,
+    rg_professor character varying(13) NOT NULL,
+    qualificacao character varying(100) NOT NULL
+);
+
+CREATE TABLE public.sala (
+    id_sala character varying(20) NOT NULL,
+    andar character varying(20) NOT NULL,
+    numero integer NOT NULL
+);
+
+CREATE TABLE public.telefone_cliente (
+    telefone character varying(30) NOT NULL,
+    rg_cliente character varying(13) NOT NULL
+);
+
+CREATE TABLE public.telefone_professor (
+    telefone character varying(30) NOT NULL,
+    rg_professor character varying(13) NOT NULL
+);
+
+ALTER TABLE ONLY public.aula_cliente
+    ADD CONSTRAINT pk_aula_cliente PRIMARY KEY (id_aula, rg_cliente);
+
+ALTER TABLE ONLY public.aula
+    ADD CONSTRAINT pk_aula_id PRIMARY KEY (id_aula);
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT pk_cliente_rg PRIMARY KEY (rg_cliente);
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT pk_contrato_id PRIMARY KEY (id_contrato);
+
+ALTER TABLE ONLY public.modalidade
+    ADD CONSTRAINT pk_modalidade_id PRIMARY KEY (id_modalidade);
+
+ALTER TABLE ONLY public.modalidade_professor
+    ADD CONSTRAINT pk_modalidade_professor PRIMARY KEY (id_modalidade, rg_professor);
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT pk_professor_rg PRIMARY KEY (rg_professor);
+
+ALTER TABLE ONLY public.qualificacao
+    ADD CONSTRAINT pk_qualificacao PRIMARY KEY (id_qualificacao);
+
+ALTER TABLE ONLY public.sala
+    ADD CONSTRAINT pk_sala_id PRIMARY KEY (id_sala);
+
+ALTER TABLE ONLY public.telefone_cliente
+    ADD CONSTRAINT pk_telefone_cliente PRIMARY KEY (telefone);
+
+ALTER TABLE ONLY public.telefone_professor
+    ADD CONSTRAINT pk_telefone_professor PRIMARY KEY (telefone);
+
+CREATE INDEX fki_fk_professor_rg ON public.aula USING btree (rg_professor);
+
+ALTER TABLE ONLY public.aula_cliente
+    ADD CONSTRAINT fk_aula_id FOREIGN KEY (id_aula) REFERENCES public.aula(id_aula);
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT fk_cliente FOREIGN KEY (rg_cliente) REFERENCES public.cliente(rg_cliente);
+
+ALTER TABLE ONLY public.aula_cliente
+    ADD CONSTRAINT fk_cliente FOREIGN KEY (rg_cliente) REFERENCES public.cliente(rg_cliente);
+
+ALTER TABLE ONLY public.modalidade_professor
+    ADD CONSTRAINT fk_modalidade_id FOREIGN KEY (id_modalidade) REFERENCES public.modalidade(id_modalidade);
+
+ALTER TABLE ONLY public.aula
+    ADD CONSTRAINT fk_modalidade_id FOREIGN KEY (id_modalidade) REFERENCES public.modalidade(id_modalidade);
+
+ALTER TABLE ONLY public.modalidade_professor
+    ADD CONSTRAINT fk_professor_rg FOREIGN KEY (rg_professor) REFERENCES public.professor(rg_professor);
+
+ALTER TABLE ONLY public.aula
+    ADD CONSTRAINT fk_professor_rg FOREIGN KEY (rg_professor) REFERENCES public.professor(rg_professor);
+
+ALTER TABLE ONLY public.qualificacao
+    ADD CONSTRAINT fk_qualificacao FOREIGN KEY (rg_professor) REFERENCES public.professor(rg_professor);
+
+ALTER TABLE ONLY public.telefone_cliente
+    ADD CONSTRAINT fk_telefone_cliente FOREIGN KEY (rg_cliente) REFERENCES public.cliente(rg_cliente);
+
+ALTER TABLE ONLY public.telefone_professor
+    ADD CONSTRAINT fk_telefone_professor FOREIGN KEY (rg_professor) REFERENCES public.professor(rg_professor);
+
+ALTER TABLE ONLY public.aula
+    ADD CONSTRAINT id_sala FOREIGN KEY (id_sala) REFERENCES public.sala(id_sala);
+

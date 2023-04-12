@@ -1,0 +1,86 @@
+***DICIONÁRIO DE DADOS***
+
+-Tabela aula
+(
+id_aula = ID das aulas
+id_modalidade = ID das modalidades
+duracao = Duração da aula
+rg_professor = RG do professor
+nome = nome da aula
+id_sala = ID da sala
+)
+
+-Tabela aula_cliente
+(
+id_aula = ID da aula
+rg_cliente = RG do cliente
+)
+
+-Tabela cliente
+(
+rg_cliente = RG do cliente
+nome = Nome do cliente
+rua = Nome da rua
+bairro = Nome do bairro
+numero = Numero da casa
+cep = CEP do endereço
+)
+
+-Tabela contrato
+(
+rg_cliente = RG do cliente
+id_contrato = ID do contrato das aulas
+data_inicio = Data de inicio do contrato
+data_fim = Data de termino do contrato
+forma_pagamento = A forma de pagamento (ex.: à vista, cartão, ...)
+valor_contrato = Valor do contrato
+)
+
+-Tabela modalidade
+(
+id_modalidade = ID da modalidade
+nome = Nome da modalidade
+)
+
+-Tabela modalidade_professor
+(
+id_modalidade = ID da modalidade
+rg_professor = RG do professor
+)
+
+-Tabela professor
+(
+rg_professor = RG do professor
+nome = Nome do professor
+rua = Nome da rua
+bairro = Nome do bairro
+numero = Numero da casa
+cep = CEP do endereco
+salario = Valor do salario
+num_carteira = Numero da carteira
+)
+
+-Tabela qualificação
+(
+rg_professor = RG do professor
+qualificacao = Qualificação do professor
+)
+
+-Tabela sala
+(
+id_sala = ID da sala
+andar = número do andar da sala
+numero = número da sala
+)
+
+-Tabela telefone_cliente(
+telefone = Telefone do cliente
+rg_cliente = RG do cliente
+)
+
+-Tabela telefone_professor
+(
+telefone = Telefone do professor
+rg_professor = RG do professor
+)
+

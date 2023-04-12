@@ -1,0 +1,12 @@
+O trabalho consiste em: 
+·      Baseado na descrição dos requisitos de Sistema de Controle de uma Academia (documento anexo), elaborar o MER correspondente (notação Peter Chen); 
+·      Usar as regras de mapeamento e produzir o modelo Relacional equivalente; 
+·      Refinar o modelo utilizando as formas normais; 
+·      Produzir o projeto físico, usando a linguagem SQL, em um SGBD de sua preferência (Oracle, SQL Server, Postgresql, MySQL, etc.), tendo cuidado para implementar todas as restrições do modelo Relacional.
+
+A nota será composta por duas partes: 
+·      A parte escrita contendo: o modelo conceitual, lógico, físico e o dicionário de dados. Esse arquivo deverá ser anexado aqui nessa atividade.
+·      A parte implementada do BD em um SGBD escolhido.
+
+
+É importante ressaltar que o trabalho deverá ser apresentado por todos os membros das equipes (de no máximo 3 alunos), os quais serão devidamente questionados sobre o trabalho.
